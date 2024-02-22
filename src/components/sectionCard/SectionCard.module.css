@@ -1,0 +1,23 @@
+.card {
+    background-color: var(--mantine-color-body);
+  }
+  
+  .footer {
+    display: flex;
+    justify-content: space-between;
+    padding: var(--mantine-spacing-sm) var(--mantine-spacing-lg);
+    border-top: rem(1px) solid light-dark(var(--mantine-color-gray-2), var(--mantine-color-dark-5));
+  }
+  
+  .title {
+    font-family:
+      Greycliff CF,
+      var(--mantine-font-family);
+    line-height: 1;
+  }
+
+  .card:hover{
+    box-shadow: 0 5px 15px rgba(224, 144, 79, 0.6);
+    -webkit-transition: all 0.6s cubic-bezier(0.165, 0.84, 0.44, 1);
+    transition: all 0.6s cubic-bezier(0.165, 0.84, 0.44, 1);
+  }
