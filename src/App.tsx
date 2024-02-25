@@ -3,9 +3,10 @@ import '@mantine/notifications/styles.css';
 import { Notifications } from '@mantine/notifications';
 import { MantineProvider } from '@mantine/core';
 import { Provider } from 'react-redux';
+import store from './store';
 import { Router } from './Router';
 import { theme } from './theme';
-import store from './store';
+import './config/interceptor';
 
 export default function App() {
   return (

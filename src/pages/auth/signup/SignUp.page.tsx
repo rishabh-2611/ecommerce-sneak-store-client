@@ -72,7 +72,7 @@ const SignUp = () => {
             <Center p={20}>
                 <Container w={460}>
                     <Center pb={20}>
-                        <Image radius="xs" w={200} h={50} fit="contain" src={logo} />
+                        <Image radius="md" w={200} h={50} fit="contain" src={logo} />
                     </Center>
                     <Title ta="center" className={classes.title}>
                         Welcome back!
@@ -84,7 +84,7 @@ const SignUp = () => {
                         </Anchor>
                     </Text>
 
-                    <Paper withBorder p={30} mt={30} radius="sm">
+                    <Paper shadow="lg" withBorder p={30} mt={30} radius="md">
                         <form onSubmit={handleSubmit(handleSignUp)}>
                             <TextInput size="sm" {...register('firstName', { required: true })} aria-invalid={errors.firstName ? 'true' : 'false'} label="Firstname" placeholder="Enter firstname" withAsterisk={false} />
                             {errors.firstName && <Text size="xs" c="red">Please enter first name</Text>}

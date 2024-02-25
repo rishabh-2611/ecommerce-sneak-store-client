@@ -27,7 +27,7 @@ const preloadedState = loadState();
 
 const store = configureStore({
     reducer: {
-        user: AuthSlice,
+      user: AuthSlice,
     },
     preloadedState,
 });

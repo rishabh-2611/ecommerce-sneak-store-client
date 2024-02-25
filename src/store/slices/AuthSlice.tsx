@@ -2,13 +2,14 @@
 /* eslint-disable no-param-reassign */
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import axios from 'axios';
-import { showSuccessToast, showErrorToast } from '../../services/toastService';
+import { showSuccessToast, showErrorToast } from '../../utils/toastUtils';
 import { SignInForm, SignUpForm } from '../../pages/auth/User';
 
 interface AuthState {
-  user: SignInForm | unknown,
+  data: SignInForm | unknown,
   status: 'idle' | 'loading' | 'succeeded' | 'failed';
   error: string | null;
+  isLoggedIn: boolean
 }
 
 export const signInUser = createAsyncThunk('auth/signInUser', async (payload: SignInForm, { rejectWithValue }) => {
@@ -40,15 +41,17 @@ export const signUpUser = createAsyncThunk('auth/signUpUser', async (payload: Si
 const AuthSlice = createSlice({
   name: 'auth',
   initialState: {
-    user: {},
+    data: {},
     status: 'idle',
     error: null,
+    isLoggedIn: false,
   } as AuthState,
   reducers: {
     logoutUser: state => {
-      state.user = null;
+      state.data = null;
       state.status = 'idle';
       state.error = null;
+      state.isLoggedIn = false;
     },
   },
   extraReducers: builder => {
@@ -58,11 +61,13 @@ const AuthSlice = createSlice({
       })
       .addCase(signInUser.fulfilled, (state, action) => {
         state.status = 'succeeded';
-        state.user = action.payload.user;
+        state.data = action.payload.user;
+        state.isLoggedIn = true;
       })
       .addCase(signInUser.rejected, (state, action) => {
         state.status = 'failed';
         state.error = action.error.message ?? 'An error occurred during login';
+        state.isLoggedIn = false;
       });
       // .addCase(addItemAsync.fulfilled, (state, action) => {
       //   state.list.push(action.payload);

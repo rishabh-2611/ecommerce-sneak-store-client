@@ -1,7 +1,7 @@
 import { Container, TextInput, Checkbox, Button, Group, Title, Text, PasswordInput, Paper, Anchor, Center, Image } from '@mantine/core';
 import { IconAt, IconLock } from '@tabler/icons-react';
 import { useForm, SubmitHandler } from 'react-hook-form';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { signInUser } from '../../../store/slices/AuthSlice';
 import classes from '../auth.module.css';
@@ -16,8 +16,14 @@ const SignIn = () => {
 
     const dispatch = useDispatch<AppDispatch>();
 
+    const navigate = useNavigate();
+
     const handleSignIn: SubmitHandler<SignInForm> = (data) => {
-        dispatch(signInUser(data));
+        dispatch(signInUser(data))
+        .then(result => {
+            console.log(result.payload.user);
+            navigate('/');
+        });
     };
 
     return (
@@ -25,7 +31,7 @@ const SignIn = () => {
             <Center p={20}>
                 <Container w={460}>
                     <Center pb={20}>
-                        <Image radius="xs" w={200} h={50} fit="contain" src={logo} />
+                        <Image radius="md" w={200} h={50} fit="contain" src={logo} />
                     </Center>
                     <Title ta="center" className={classes.title}>
                         Welcome back!
@@ -37,7 +43,7 @@ const SignIn = () => {
                         </Anchor>
                     </Text>
 
-                    <Paper withBorder p={30} mt={30} radius="sm">
+                    <Paper shadow="lg" withBorder p={30} mt={30} radius="md">
                         <form onSubmit={handleSubmit(handleSignIn)}>
                             <TextInput size="sm" {...register('email', { required: true, pattern: /^\S+@\S+$/i })} aria-invalid={errors.email ? 'true' : 'false'} label="Email" placeholder="Enter email" leftSection={<IconAt size={16} />} withAsterisk={false} />
                             {errors.email && <Text size="xs" c="red">Please enter a valid email</Text>}

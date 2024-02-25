@@ -1,3 +1,4 @@
+/* eslint-disable import/extensions */
 /* eslint-disable max-len, react/jsx-no-undef */
 
 import {
@@ -16,12 +17,13 @@ import {
     useMantineTheme,
     Image,
   } from '@mantine/core';
-  import { IconChevronDown, IconSearch } from '@tabler/icons-react';
-  import { useDisclosure } from '@mantine/hooks';
+  import { IconChevronDown, IconSearch, IconShoppingCart } from '@tabler/icons-react';
+  import { useSelector } from 'react-redux';
+  import { useEffect, useState } from 'react';
+  import { RootState } from '@/store';
 
-    import classes from './Header.module.css';
+  import classes from './Header.module.css';
   import logo from '../../assets/logo/logo.png';
-import SignUpModal from '../Modals/SignUpModal';
 
   const menData = [
     {
@@ -74,8 +76,14 @@ import SignUpModal from '../Modals/SignUpModal';
   ];
 
   export function Header() {
+    const [isLoggedIn, setIsLoggedIn] = useState(false);
+
     const theme = useMantineTheme();
-    const [signUpModalOpened, { open, close }] = useDisclosure(false);
+    const user:any = useSelector((state:RootState) => state.user);
+
+    useEffect(() => {
+      setIsLoggedIn(user.isLoggedIn);
+    }, [user]);
 
     const menDataLinks = menData.map((item) => (
       <UnstyledButton className={classes.subLink} key={item.title}>
@@ -113,8 +121,8 @@ import SignUpModal from '../Modals/SignUpModal';
           <Group justify="space-between" h="100%">
             <Image h={50} src={logo} />
 
-            <Group h="100%" gap={0} visibleFrom="sm">
-              <HoverCard width={600} position="bottom" radius="sm" shadow="md" withinPortal>
+            <Group h="100%" gap={0}>
+              <HoverCard width={600} position="bottom" radius="md" shadow="md" withinPortal>
                 <HoverCard.Target>
                   <a href="#" className={classes.link}>
                     <Center inline>
@@ -145,7 +153,7 @@ import SignUpModal from '../Modals/SignUpModal';
                 </HoverCard.Dropdown>
               </HoverCard>
 
-              <HoverCard width={600} position="bottom" radius="sm" shadow="md" withinPortal>
+              <HoverCard width={600} position="bottom" radius="md" shadow="md" withinPortal>
                 <HoverCard.Target>
                   <a href="#" className={classes.link}>
                     <Center inline>
@@ -183,7 +191,7 @@ import SignUpModal from '../Modals/SignUpModal';
               </a>
             </Group>
 
-            <Group h="100%" gap={12} visibleFrom="sm">
+            <Group h="100%" gap={8}>
               <Input
                 w={300}
                 className={classes.search}
@@ -192,8 +200,15 @@ import SignUpModal from '../Modals/SignUpModal';
                 visibleFrom="xs"
               />
 
-              <Button variant="default" component="a" href="/signin">Log in</Button>
-              <Button color="orange" component="a" href="/signup">Sign up</Button>
+              {isLoggedIn === true ?
+                <>
+                  <Button variant="default" component="a" href="/cart"><IconShoppingCart /> Cart</Button>
+                </> :
+                <>
+                  <Button variant="default" component="a" href="/signin">Log in</Button>
+                  <Button color="orange" component="a" href="/signup">Sign up</Button>
+                </>
+              }
             </Group>
 
           </Group>

@@ -8,7 +8,6 @@ interface SectionCard {
     image: string;
     footer?: string;
     footerSubtitle?: string;
-
 }
 
 const SectionCard = ({ name, image, footer, footerSubtitle }:SectionCard) => (
