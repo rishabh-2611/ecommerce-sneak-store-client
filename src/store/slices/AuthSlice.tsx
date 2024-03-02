@@ -1,3 +1,6 @@
+/* eslint-disable no-unsafe-finally */
+/* eslint-disable @typescript-eslint/no-unused-vars */
+/* eslint-disable no-console */
 /* eslint-disable max-len */
 /* eslint-disable no-param-reassign */
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
@@ -38,6 +41,19 @@ export const signUpUser = createAsyncThunk('auth/signUpUser', async (payload: Si
   }
 });
 
+export const signOutUser = createAsyncThunk('auth/signOutUser', async () => {
+  try {
+    const response = await axios.post('/logout');
+    showSuccessToast(response.data.message);
+    return response.data;
+  } catch (error: any) {
+    let errorMsg;
+    if (error.response && error.response.data && error.response.data.message) errorMsg = error.response.data.message;
+    console.log(errorMsg);
+    return errorMsg;
+  }
+});
+
 const AuthSlice = createSlice({
   name: 'auth',
   initialState: {
@@ -46,14 +62,7 @@ const AuthSlice = createSlice({
     error: null,
     isLoggedIn: false,
   } as AuthState,
-  reducers: {
-    logoutUser: state => {
-      state.data = null;
-      state.status = 'idle';
-      state.error = null;
-      state.isLoggedIn = false;
-    },
-  },
+  reducers: {},
   extraReducers: builder => {
     builder
       .addCase(signInUser.pending, state => {
@@ -67,6 +76,18 @@ const AuthSlice = createSlice({
       .addCase(signInUser.rejected, (state, action) => {
         state.status = 'failed';
         state.error = action.error.message ?? 'An error occurred during login';
+        state.isLoggedIn = false;
+      })
+      .addCase(signOutUser.fulfilled, (state, action) => {
+        state.data = {};
+        state.status = 'idle';
+        state.error = null;
+        state.isLoggedIn = false;
+      })
+      .addCase(signOutUser.rejected, (state, action) => {
+        state.data = {};
+        state.status = 'idle';
+        state.error = null;
         state.isLoggedIn = false;
       });
       // .addCase(addItemAsync.fulfilled, (state, action) => {

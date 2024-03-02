@@ -16,14 +16,19 @@ import {
     rem,
     useMantineTheme,
     Image,
+    Avatar,
+    Menu,
   } from '@mantine/core';
-  import { IconChevronDown, IconSearch, IconShoppingCart } from '@tabler/icons-react';
-  import { useSelector } from 'react-redux';
+  import { IconChevronDown, IconPackages, IconLogout, IconTruckDelivery, IconSearch, IconSettings, IconShoppingCart } from '@tabler/icons-react';
+  import cx from 'clsx';
+  import { useDispatch, useSelector } from 'react-redux';
   import { useEffect, useState } from 'react';
-  import { RootState } from '@/store';
-
+import { Link } from 'react-router-dom';
+  import { AppDispatch, RootState } from '@/store';
+  import { signOutUser } from '../../store/slices/AuthSlice';
   import classes from './Header.module.css';
   import logo from '../../assets/logo/logo.png';
+  import avatar from '../../assets/avatar.jpg';
 
   const menData = [
     {
@@ -75,6 +80,81 @@ import {
     },
   ];
 
+  interface sellerUser {
+    userName: string;
+    sellerUserMenuOpened: boolean;
+    setSellerUserMenuOpened: Function
+  }
+
+  function SellerUser({ userName, sellerUserMenuOpened, setSellerUserMenuOpened }:sellerUser) {
+    const dispatch = useDispatch<AppDispatch>();
+    return (
+      <Menu
+        width={260}
+        position="bottom-end"
+        transitionProps={{ transition: 'pop-top-right' }}
+        onClose={() => setSellerUserMenuOpened(false)}
+        onOpen={() => setSellerUserMenuOpened(true)}
+        withinPortal
+      >
+        <Menu.Target>
+          <UnstyledButton
+            className={cx(classes.user, { [classes.userActive]: sellerUserMenuOpened })}
+          >
+            <Group gap={7}>
+              <Avatar src={avatar} alt={userName} radius="xl" size={20} />
+              <Text fw={500} size="sm" lh={1} mr={3}>
+                {userName}
+              </Text>
+              <IconChevronDown style={{ width: rem(12), height: rem(12) }} stroke={1.5} />
+            </Group>
+          </UnstyledButton>
+        </Menu.Target>
+        <Menu.Dropdown>
+          <Menu.Item
+            leftSection={
+              <IconPackages
+                style={{ width: rem(16), height: rem(16) }}
+                color="#DB9406"
+                stroke={1.5}
+              />
+            }
+          >
+            My Products
+          </Menu.Item>
+          <Menu.Item
+            leftSection={
+              <IconTruckDelivery
+                style={{ width: rem(16), height: rem(16) }}
+                color="#227619"
+                stroke={1.5}
+              />
+            }
+          >
+            Orders
+          </Menu.Item>
+
+          <Menu.Label>Settings</Menu.Label>
+          <Menu.Item
+            leftSection={
+              <IconSettings style={{ width: rem(16), height: rem(16) }} stroke={1.5} />
+            }
+          >
+            Account settings
+          </Menu.Item>
+          <Menu.Item
+            onClick={() => dispatch(signOutUser())}
+            leftSection={
+              <IconLogout style={{ width: rem(16), height: rem(16) }} stroke={1.5} />
+            }
+          >
+            Logout
+          </Menu.Item>
+        </Menu.Dropdown>
+      </Menu>
+    );
+  }
+
   export function Header() {
     const [isLoggedIn, setIsLoggedIn] = useState(false);
 
@@ -84,6 +164,8 @@ import {
     useEffect(() => {
       setIsLoggedIn(user.isLoggedIn);
     }, [user]);
+
+    const [sellerUserMenuOpened, setSellerUserMenuOpened] = useState(false);
 
     const menDataLinks = menData.map((item) => (
       <UnstyledButton className={classes.subLink} key={item.title}>
@@ -202,11 +284,12 @@ import {
 
               {isLoggedIn === true ?
                 <>
-                  <Button variant="default" component="a" href="/cart"><IconShoppingCart /> Cart</Button>
+                  <SellerUser userName={user.data.name} sellerUserMenuOpened={sellerUserMenuOpened} setSellerUserMenuOpened={setSellerUserMenuOpened} />
+                  <Button variant="default" component={Link} to="/cart"><IconShoppingCart /> Cart</Button>
                 </> :
                 <>
-                  <Button variant="default" component="a" href="/signin">Log in</Button>
-                  <Button color="orange" component="a" href="/signup">Sign up</Button>
+                  <Button variant="default" component={Link} to="/signin">Log in</Button>
+                  <Button color="orange" component={Link} to="/signup">Sign up</Button>
                 </>
               }
             </Group>
