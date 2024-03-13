@@ -137,7 +137,7 @@ import { Link } from 'react-router-dom';
           <Menu.Label>Settings</Menu.Label>
           <Menu.Item
             leftSection={
-              <IconSettings style={{ width: rem(16), height: rem(16) }} stroke={1.5} />
+              <IconSettings color="blue" style={{ width: rem(16), height: rem(16) }} stroke={1.5} />
             }
           >
             Account settings
@@ -145,7 +145,7 @@ import { Link } from 'react-router-dom';
           <Menu.Item
             onClick={() => dispatch(signOutUser())}
             leftSection={
-              <IconLogout style={{ width: rem(16), height: rem(16) }} stroke={1.5} />
+              <IconLogout color="red" style={{ width: rem(16), height: rem(16) }} stroke={1.5} />
             }
           >
             Logout
@@ -198,10 +198,10 @@ import { Link } from 'react-router-dom';
     ));
 
     return (
-      <Box>
+      <Box bg="white">
         <header className={classes.header}>
           <Group justify="space-between" h="100%">
-            <Image h={50} src={logo} />
+            <Link to="/"><Image h={50} src={logo} /></Link>
 
             <Group h="100%" gap={0}>
               <HoverCard width={600} position="bottom" radius="md" shadow="md" withinPortal>

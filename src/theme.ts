@@ -6,5 +6,5 @@ export const theme = createTheme({
   primaryShade: { light: 5, dark: 5 },
   fontFamily: 'Roboto, sans-serif',
   focusRing: 'auto',
-  defaultRadius: 'md',
+  defaultRadius: 'sm',
 });

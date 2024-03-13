@@ -1,3 +1,4 @@
+/* eslint-disable import/extensions */
 /* eslint-disable max-len */
 import { Container, TextInput, Button, Title, Text, PasswordInput, Paper, Anchor, Center, Image, Box, rem, Popover, Progress, NativeSelect } from '@mantine/core';
 import { IconCheck, IconX } from '@tabler/icons-react';
@@ -10,6 +11,7 @@ import classes from '../auth.module.css';
 import logo from '../../../assets/logo/logo.png';
 import { AppDispatch } from '../../../store/index';
 import { SignUpForm } from '../User';
+import { Header } from '@/components/header/Header';
 
 function PasswordRequirement({ meets, label }: { meets: boolean; label: string }) {
     return (
@@ -69,7 +71,8 @@ const SignUp = () => {
 
     return (
         <>
-            <Center p={20}>
+            <Header />
+            <Center p={20} mt={50}>
                 <Container w={460}>
                     <Center pb={20}>
                         <Image radius="md" w={200} h={50} fit="contain" src={logo} />

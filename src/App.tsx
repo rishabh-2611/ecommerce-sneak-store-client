@@ -7,6 +7,7 @@ import store from './store';
 import { Router } from './Router';
 import { theme } from './theme';
 import './config/interceptor';
+import './App.css';
 
 export default function App() {
   return (

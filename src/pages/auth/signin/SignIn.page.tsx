@@ -1,3 +1,4 @@
+/* eslint-disable import/extensions */
 import { Container, TextInput, Checkbox, Button, Group, Title, Text, PasswordInput, Paper, Anchor, Center, Image } from '@mantine/core';
 import { IconAt, IconLock } from '@tabler/icons-react';
 import { useForm, SubmitHandler } from 'react-hook-form';
@@ -8,10 +9,9 @@ import classes from '../auth.module.css';
 import logo from '../../../assets/logo/logo.png';
 import { AppDispatch } from '../../../store/index';
 import { SignInForm } from '../User';
+import { Header } from '@/components/header/Header';
 
 const SignIn = () => {
-    // const user = useSelector((state:RootState) => state.user);
-
     const { register, handleSubmit, formState: { errors } } = useForm<SignInForm>();
 
     const dispatch = useDispatch<AppDispatch>();
@@ -28,7 +28,8 @@ const SignIn = () => {
 
     return (
         <>
-            <Center p={20}>
+            <Header />
+            <Center p={20} mt={50}>
                 <Container w={460}>
                     <Center pb={20}>
                         <Image radius="md" w={200} h={50} fit="contain" src={logo} />

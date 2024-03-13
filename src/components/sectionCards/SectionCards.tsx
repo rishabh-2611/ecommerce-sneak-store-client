@@ -5,14 +5,14 @@ import SectionCard from '../sectionCard/SectionCard';
 /* eslint-disable no-lone-blocks */
 
 interface SectionCards {
-    title: 'string',
-    items: [{
-        name: 'string',
-        image: 'string',
-        footer?: 'string',
-        footerSubtitle?: 'string',
-    }],
-    colInRow: 'Number',
+    title: string,
+    items: {
+        name: string,
+        image: string,
+        footer?: string,
+        footerSubtitle?: string,
+    }[],
+    colInRow: number,
 }
 
 function SectionCards({ title, items, colInRow }:SectionCards) {
