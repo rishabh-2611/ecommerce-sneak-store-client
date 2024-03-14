@@ -6,7 +6,7 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import axios from 'axios';
 import { showSuccessToast, showErrorToast } from '../../utils/toastUtils';
-import { SignInForm, SignUpForm } from '../../pages/auth/User';
+import { SignInForm, SignUpForm } from '../../types/User';
 
 interface AuthState {
   data: SignInForm | unknown,

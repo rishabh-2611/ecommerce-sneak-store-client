@@ -1,5 +1,7 @@
 import { configureStore } from '@reduxjs/toolkit';
 import AuthSlice from './slices/AuthSlice';
+import ProductSlice from './slices/ProductSlice';
+import MediaSlice from './slices/MediaSlice';
 
 const loadState = () => {
     try {
@@ -28,6 +30,8 @@ const preloadedState = loadState();
 const store = configureStore({
     reducer: {
       user: AuthSlice,
+      products: ProductSlice,
+      media: MediaSlice,
     },
     preloadedState,
 });

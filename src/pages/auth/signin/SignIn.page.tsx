@@ -8,7 +8,7 @@ import { signInUser } from '../../../store/slices/AuthSlice';
 import classes from '../auth.module.css';
 import logo from '../../../assets/logo/logo.png';
 import { AppDispatch } from '../../../store/index';
-import { SignInForm } from '../User';
+import { SignInForm } from '../../../types/User';
 import { Header } from '@/components/header/Header';
 
 const SignIn = () => {

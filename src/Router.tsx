@@ -1,28 +1,22 @@
-import { createBrowserRouter, RouterProvider } from 'react-router-dom';
+import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import { HomePage } from './pages/home/Home.page';
-import SignUp from './pages/auth/signup/SignUp.page';
 import NotFound from './pages/auth/error/NotFound';
+import SignUp from './pages/auth/signup/SignUp.page';
 import SignIn from './pages/auth/signin/SignIn.page';
-
-const router = createBrowserRouter([
-  {
-    path: '/',
-    element: <HomePage />,
-  },
-  {
-    path: '/signin',
-    element: <SignIn />,
-  },
-  {
-    path: '/signup',
-    element: <SignUp />,
-  },
-  {
-    path: '*',
-    element: <NotFound />,
-  },
-]);
+import { AddProductPage } from './pages/products/AddProduct.page';
 
 export function Router() {
-  return <RouterProvider router={router} />;
+  return (
+    <BrowserRouter>
+      <Routes>
+          <Route path="/" element={<HomePage />} />
+          <Route path="/signin" element={<SignIn />} />
+          <Route path="/signup" element={<SignUp />} />
+          <Route path="/products">
+            <Route path="add" element={<AddProductPage />} />
+          </Route>
+          <Route path="*" element={<NotFound />} />
+      </Routes>
+    </BrowserRouter>
+  );
 }
