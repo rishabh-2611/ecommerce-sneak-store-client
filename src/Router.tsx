@@ -4,6 +4,7 @@ import NotFound from './pages/auth/error/NotFound';
 import SignUp from './pages/auth/signup/SignUp.page';
 import SignIn from './pages/auth/signin/SignIn.page';
 import { AddProductPage } from './pages/products/AddProduct.page';
+import { ProductsPage } from './pages/products/Products.page';
 
 export function Router() {
   return (
@@ -13,6 +14,7 @@ export function Router() {
           <Route path="/signin" element={<SignIn />} />
           <Route path="/signup" element={<SignUp />} />
           <Route path="/products">
+            <Route index element={<ProductsPage />} />
             <Route path="add" element={<AddProductPage />} />
           </Route>
           <Route path="*" element={<NotFound />} />

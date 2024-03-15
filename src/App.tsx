@@ -14,7 +14,7 @@ export default function App() {
     <Provider store={store}>
       <MantineProvider theme={theme}>
         <Router />
-        <Notifications position="top-right" />
+        <Notifications mt={70} zIndex={100} position="top-right" />
       </MantineProvider>
     </Provider>
   );

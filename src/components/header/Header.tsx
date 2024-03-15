@@ -198,7 +198,7 @@ import { Link } from 'react-router-dom';
     ));
 
     return (
-      <Box bg="white">
+      <Box bg="white" style={{ position: 'sticky', top: 0, zIndex: 1000 }}>
         <header className={classes.header}>
           <Group justify="space-between" h="100%">
             <Link to="/"><Image h={50} src={logo} /></Link>

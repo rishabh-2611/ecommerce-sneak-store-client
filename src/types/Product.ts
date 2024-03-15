@@ -19,6 +19,35 @@ export interface AddProductForm {
     images: string[];
 }
 
+export interface ProductFilterForm {
+    category: string[];
+    brand: string[];
+    gender: string;
+    material: string[];
+    sizes: string[];
+    discount: number;
+    price: number;
+    rating: number;
+}
+
+export interface ProductCardProps {
+    _id: string;
+    name: string;
+    details: {
+        brand: string,
+        gender: string,
+        material: string,
+        category: string
+    },
+    discount: number;
+    originalPrice: number;
+    price: number;
+    rating: number;
+    images: {
+        url: string;
+    }[];
+}
+
 export const ProductCategories = ['Sneakers', 'Boots', 'Sandals', 'Shoes', 'Heels', 'Slippers', 'Flip Flops', 'Other'];
 
 export const ProductBrands = ['Adidas', 'Asics', 'Bata', 'Crocs', 'Fila', 'Kappa', 'Nike', 'Puma', 'Reebok', 'Skechers', 'Under Armour'];
