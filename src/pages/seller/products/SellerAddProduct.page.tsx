@@ -5,19 +5,18 @@
 import { TextInput, Button, Container, Text, Image, Title, rem, Flex, Input, Grid, Paper, NativeSelect, SimpleGrid, FileButton, ActionIcon, ScrollArea, MultiSelect } from '@mantine/core';
 import { SubmitHandler, useFieldArray, useForm } from 'react-hook-form';
 import { useDispatch } from 'react-redux';
-import { Link, useNavigate } from 'react-router-dom';
-import { IconArrowNarrowLeft, IconPlus, IconX } from '@tabler/icons-react';
+import { useNavigate } from 'react-router-dom';
+import { IconPlus, IconX } from '@tabler/icons-react';
 import { useState } from 'react';
-import { Header } from '@/components/header/Header';
 import { AppDispatch } from '@/store';
-import { AddProductForm, ProductBrands, ProductCategories, ProductGenders, ProductMaterials, ProductSizes } from '../../types/Product';
+import { AddProductForm, ProductBrands, ProductCategories, ProductGenders, ProductMaterials, ProductSizes } from '../../../types/Product';
 import { TextEditor } from '@/components/form/TextEditor';
 import { uploadMedia } from '@/store/slices/MediaSlice';
 import { MediaObject } from '@/types/Media';
 import { addProduct } from '@/store/slices/ProductSlice';
 import { showErrorToast } from '@/utils/toastUtils';
 
-export function AddProductPage() {
+export function SellerAddProductPage() {
     const dispatch = useDispatch<AppDispatch>();
     const navigate = useNavigate();
 
@@ -95,13 +94,7 @@ export function AddProductPage() {
 
     return (
       <>
-        <Header />
-        <Container size="lg" my="xl">
-            {/* <Breadcrumbs my="lg" separator="•" separatorMargin="md">{links}</Breadcrumbs> */}
-            <Text c="dimmed" size="md" component={Link} to="/products">
-                <IconArrowNarrowLeft style={{ width: rem(18), height: rem(12) }} stroke={1.5} />
-                Back to Products
-            </Text>
+        <Container size="lg">
             <form onSubmit={handleSubmit(handleSubmitProduct)}>
                 <Flex my="md" justify="space-between">
                     <Title order={2}>Add Product</Title>
