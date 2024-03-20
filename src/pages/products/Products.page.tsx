@@ -5,7 +5,7 @@ import { useForm } from 'react-hook-form';
 import { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { Header } from '@/components/header/Header';
-import { Sidebar } from '@/components/sidebar/Sidebar';
+import { FilterSidebar } from '@/components/filterSidebar/FilterSidebar';
 import { ProductFilterForm, ProductCardProps } from '@/types/Product';
 import ProductCard from '@/components/productCard/ProductCard';
 import { AppDispatch } from '@/store';
@@ -45,10 +45,10 @@ export function ProductsPage() {
             <Container fluid>
                 <Flex>
                     <div>
-                        <Sidebar {...{ register, handleSubmit, onProductFilter, setValue }} />
+                        <FilterSidebar {...{ register, handleSubmit, onProductFilter, setValue }} />
                     </div>
                     <Box mt={72} px={20}>
-                        <SimpleGrid cols={4}>
+                        <SimpleGrid cols={5}>
                             {products.map((product:ProductCardProps) =>
                                 <ProductCard key={product._id} {...product} />
                             )}
