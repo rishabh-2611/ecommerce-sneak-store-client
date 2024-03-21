@@ -2,7 +2,7 @@
 /* eslint-disable max-len */
 /* eslint-disable no-mixed-operators */
 /* eslint-disable import/extensions */
-import { TextInput, Button, Container, Text, Image, Title, rem, Flex, Input, Grid, Paper, NativeSelect, SimpleGrid, FileButton, ActionIcon, ScrollArea, MultiSelect } from '@mantine/core';
+import { TextInput, Button, Container, Text, Image, Title, Flex, Input, Grid, Paper, NativeSelect, SimpleGrid, FileButton, ActionIcon, ScrollArea, MultiSelect } from '@mantine/core';
 import { SubmitHandler, useFieldArray, useForm } from 'react-hook-form';
 import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';

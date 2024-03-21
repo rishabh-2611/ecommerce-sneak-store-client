@@ -1,3 +1,7 @@
 body{
     background-color: #f1f3f6;
 }
+
+.mantine-Badge-label {
+    text-transform: none !important; /* Override Mantine's default uppercase styling */
+}

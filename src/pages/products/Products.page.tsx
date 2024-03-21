@@ -13,7 +13,8 @@ import { getProducts } from '@/store/slices/ProductSlice';
 import { showErrorToast } from '@/utils/toastUtils';
 
 export function ProductsPage() {
-    const { register, handleSubmit, getValues, setValue, formState: { errors } } = useForm<ProductFilterForm>();
+    const { register, handleSubmit, getValues, setValue } = useForm<ProductFilterForm>();
+    // formState: { errors }
     const dispatch = useDispatch<AppDispatch>();
     const [products, setProducts] = useState([]);
 

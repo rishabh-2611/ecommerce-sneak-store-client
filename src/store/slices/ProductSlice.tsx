@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/default-param-last */
 /* eslint-disable no-empty-pattern */
 /* eslint-disable import/extensions */
 /* eslint-disable no-unsafe-finally */
@@ -19,7 +20,7 @@ interface ProductState {
 
 export const addProduct = createAsyncThunk('addProduct', async (payload: AddProductForm, { rejectWithValue }) => {
   try {
-    const response = await axios.post('/products', payload);
+    const response = await axios.post('/seller/products', payload);
     showSuccessToast(response.data.message);
     return response.data;
   } catch (error: any) {
@@ -33,6 +34,18 @@ export const addProduct = createAsyncThunk('addProduct', async (payload: AddProd
 export const getProducts = createAsyncThunk('getProducts', async (_, { rejectWithValue }) => {
   try {
     const response = await axios.get('/products');
+    return response.data;
+  } catch (error: any) {
+    let errorMsg = 'Something went wrong. Please try again';
+    if (error.response && error.response.data && error.response.data.message) errorMsg = error.response.data.message;
+    showErrorToast(errorMsg);
+    return rejectWithValue('Products cannot be fetched.');
+  }
+});
+
+export const getSellerProducts = createAsyncThunk('getSellerProducts', async (_, { rejectWithValue }) => {
+  try {
+    const response = await axios.get('/seller/products');
     return response.data;
   } catch (error: any) {
     let errorMsg = 'Something went wrong. Please try again';
@@ -73,6 +86,18 @@ const ProductSlice = createSlice({
         state.data = action.payload.product;
       })
       .addCase(getProducts.rejected, (state, action) => {
+        state.status = 'failed';
+        state.error = action.error.message ?? 'Products cannot be fetched';
+        state.isLoggedIn = false;
+      })
+      .addCase(getSellerProducts.pending, state => {
+        state.status = 'loading';
+      })
+      .addCase(getSellerProducts.fulfilled, (state, action) => {
+        state.status = 'succeeded';
+        state.data = action.payload.product;
+      })
+      .addCase(getSellerProducts.rejected, (state, action) => {
         state.status = 'failed';
         state.error = action.error.message ?? 'Products cannot be fetched';
         state.isLoggedIn = false;

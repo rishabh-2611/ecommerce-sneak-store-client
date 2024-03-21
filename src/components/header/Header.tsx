@@ -12,14 +12,13 @@ import {
     Divider,
     Center,
     Box,
-    Input,
     rem,
     useMantineTheme,
     Image,
     Avatar,
     Menu,
   } from '@mantine/core';
-  import { IconChevronDown, IconPackages, IconLogout, IconTruckDelivery, IconSearch, IconSettings, IconShoppingCart } from '@tabler/icons-react';
+  import { IconChevronDown, IconPackages, IconLogout, IconTruckDelivery, IconSettings, IconShoppingCart } from '@tabler/icons-react';
   import cx from 'clsx';
   import { useDispatch, useSelector } from 'react-redux';
   import { useEffect, useState } from 'react';
@@ -29,6 +28,7 @@ import { Link } from 'react-router-dom';
   import classes from './Header.module.css';
   import logo from '../../assets/logo/logo.png';
   import avatar from '../../assets/avatar.jpg';
+import SearchInput from '../form/SearchInput';
 
   const menData = [
     {
@@ -367,13 +367,7 @@ import { Link } from 'react-router-dom';
               </Group>
 
               <Group h="100%" gap={8}>
-                <Input
-                  w={300}
-                  className={classes.search}
-                  placeholder="Search for products, brands and more"
-                  leftSection={<IconSearch style={{ width: rem(16), height: rem(16) }} stroke={1.5} />}
-                  visibleFrom="xs"
-                />
+                <SearchInput placeholder="Search for products, brands and more" />
 
                 {isLoggedIn === true ?
                   <>
