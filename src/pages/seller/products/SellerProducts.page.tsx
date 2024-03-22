@@ -16,7 +16,7 @@ import { ProductCardProps } from '@/types/Product';
 
 const DEFAULT_IMAGE = `${process.env.SERVER_APP}/assets/images/product_default.webp`;
 
-const getGenderBatch = (gender:string) => {
+const getGenderBadge = (gender:string) => {
     if (gender === 'Men' || gender === 'Boy') {
         return <Badge variant="light" color="blue">{gender}</Badge>;
     } if (gender === 'Women' || gender === 'Girl') {
@@ -24,6 +24,14 @@ const getGenderBatch = (gender:string) => {
     }
 
     return <Badge variant="light" color="gray">{gender}</Badge>;
+};
+
+const getStatusBadge = (status:string) => {
+  if (status === 'Out of stock') {
+      return <Badge variant="dot" color="red">Out of stock</Badge>;
+  }
+
+  return <Badge variant="dot" color="green">In stock</Badge>;
 };
 
 const TableSkeleton = ({ rows }: { rows: number }) => {
@@ -72,7 +80,10 @@ export function SellerProductsPage() {
             <Text fz="sm">{item.details.brand}</Text>
           </Table.Td>
           <Table.Td>
-            <Text fz="sm">{getGenderBatch(item.details.gender)}</Text>
+            <Text fz="sm">{getGenderBadge(item.details.gender)}</Text>
+          </Table.Td>
+          <Table.Td>
+            <Text fz="sm">{getStatusBadge(item.status)}</Text>
           </Table.Td>
           <Table.Td>
             <Group gap={0} justify="flex-end">
@@ -106,10 +117,11 @@ export function SellerProductsPage() {
                     <Table verticalSpacing="sm">
                         <Table.Thead c="dimmed">
                             <Table.Tr>
-                                <Table.Th>Product</Table.Th>
-                                <Table.Th>Category</Table.Th>
-                                <Table.Th>Brand</Table.Th>
-                                <Table.Th>Gender</Table.Th>
+                                <Table.Th>PRODUCT</Table.Th>
+                                <Table.Th>CATEGORY</Table.Th>
+                                <Table.Th>BRAND</Table.Th>
+                                <Table.Th>GENDER</Table.Th>
+                                <Table.Th>STATUS</Table.Th>
                                 <Table.Th style={{ textAlign: 'right' }}>Actions</Table.Th>
                             </Table.Tr>
                         </Table.Thead>

@@ -3,7 +3,7 @@
 import { Container, TextInput, Button, Title, Text, PasswordInput, Paper, Anchor, Center, Image, Box, rem, Popover, Progress, NativeSelect } from '@mantine/core';
 import { IconCheck, IconX } from '@tabler/icons-react';
 import { useForm, SubmitHandler } from 'react-hook-form';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { useState } from 'react';
 import { signUpUser } from '../../../store/slices/AuthSlice';
@@ -64,9 +64,15 @@ const SignUp = () => {
     const { register, handleSubmit, formState: { errors } } = useForm<SignUpForm>();
 
     const dispatch = useDispatch<AppDispatch>();
+    const navigate = useNavigate();
 
-    const handleSignUp: SubmitHandler<SignUpForm> = (data) => {
-        dispatch(signUpUser(data));
+    const handleSignUp: SubmitHandler<SignUpForm> = async (data) => {
+        const result = await dispatch(signUpUser(data));
+        if (result.payload.user?.type === 'Buyer') {
+            navigate('/');
+        } else if (result.payload.user?.type === 'Seller') {
+            navigate('/seller/dashboard');
+        }
     };
 
     return (

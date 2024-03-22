@@ -18,12 +18,13 @@ const SignIn = () => {
 
     const navigate = useNavigate();
 
-    const handleSignIn: SubmitHandler<SignInForm> = (data) => {
-        dispatch(signInUser(data))
-        .then(result => {
-            console.log(result.payload.user);
+    const handleSignIn: SubmitHandler<SignInForm> = async (data) => {
+        const result = await dispatch(signInUser(data));
+        if (result.payload.user?.type === 'Buyer') {
             navigate('/');
-        });
+        } else if (result.payload.user?.type === 'Seller') {
+            navigate('/seller/dashboard');
+        }
     };
 
     return (

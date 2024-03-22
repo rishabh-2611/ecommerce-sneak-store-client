@@ -43,6 +43,7 @@ export interface ProductCardProps {
     originalPrice: number;
     price: number;
     rating: number;
+    status: string;
     images: {
         url: string;
     }[];
